@@ -46,6 +46,22 @@ nav {
     color: #ffd700;
 }
 
+
+.post-card {
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.post-card h2 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.post-card h2 a:hover {
+    color: #ffd700;
+}
+
+
 main {
     padding: 20px;
     max-width: 800px;

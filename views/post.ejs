@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+    <%- include('partials/navbar') %>
+
+        <main>
+            <h1>
+                <%=title %>
+            </h1>
+            <h2>by
+                <%=name%>
+            </h2>
+            <p>
+                <%=date%>
+            </p>
+            <p>
+                <%=message%>
+            </p>
+            <p class="post-meta">
+                by <%= name %>
+            </p>
+            <a href="/posts">Back to Blog</a>
+
+        </main>
+
+        <%- include('partials/footer') %>
