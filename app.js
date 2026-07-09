@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 const PORT = 3000;
 
 let posts = [
@@ -52,6 +53,23 @@ app.get('/posts', (req, res) => {
     res.render('posts', { title: 'posts', currentPage: 'posts', posts: posts });
 })
 
+app.get('/posts/new', (req, res) => {
+    res.render('create', { title: 'Create Post', currentPage: 'posts' });
+});
+
+app.post('/posts', (req, res) => {
+    const newPost = {
+        id: Date.now(),
+        title: req.body.title,
+        content: req.body.content,
+        date: new Date().toLocaleDateString(),
+        author: "Krish"
+    };
+
+    posts.push(newPost);
+    res.redirect('/posts');
+
+});
 
 app.get('/posts/:id', (req, res) => {
     const id = parseInt(req.params.id);
@@ -59,9 +77,14 @@ app.get('/posts/:id', (req, res) => {
     if (!post) {
         return res.status(404).send('post not found')
     }
-    res.render('post', { title: post.title, currentPage: 'posts', message: post.content, date: post.date, name: post.author });
+    res.render('post', { title: post.title, currentPage: 'posts', post: post });
 })
 
+app.delete('/posts/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    posts = posts.filter(post => post.id !== id);
+    res.redirect('/posts');
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
