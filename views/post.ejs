@@ -20,7 +20,9 @@
             <form action="/posts/<%= post.id %>/delete" method="POST" style="display: inline;">
                 <button type="submit" class="btn-delete">Delete Post</button>
             </form>
-            <a href="/posts">Back to Blog</a>
+            <form action="/posts" method="GET" style="display: inline;">
+                <button type="submit" class="btn-edit">Back to blog</button>
+            </form>
 
         </main>
 
