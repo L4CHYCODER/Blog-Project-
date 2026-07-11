@@ -140,3 +140,24 @@ main {
     max-width: 800px;
     margin: auto;
 }
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    textarea {
+        height: 150px;
+    }
+}

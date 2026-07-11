@@ -14,15 +14,14 @@
             <p>
                 <%=post.content%>
             </p>
-            <p class="post-meta">
-                by <%= post.author %>
-            </p>
+
+
             <form action="/posts/<%= post.id %>/delete" method="POST" style="display: inline;">
                 <button type="submit" class="btn-delete">Delete Post</button>
             </form>
-            <form action="/posts" method="GET" style="display: inline;">
-                <button type="submit" class="btn-edit">Back to blog</button>
-            </form>
+
+            <a href="/posts/<%= post.id %>/edit" class="btn">Edit Post</a>
+            <a href="/posts" class="btn">Back to Blog</a>
 
         </main>
 

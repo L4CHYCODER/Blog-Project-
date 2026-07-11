@@ -58,6 +58,11 @@ app.get('/posts/new', (req, res) => {
 });
 
 app.post('/posts', (req, res) => {
+    if (!req.body.title || !req.body.content) {
+        return res.status(400).send('Title and Content are required!');
+    }
+
+
     const newPost = {
         id: Date.now(),
         title: req.body.title,
@@ -66,10 +71,36 @@ app.post('/posts', (req, res) => {
         author: "Krish"
     };
 
+
     posts.push(newPost);
     res.redirect('/posts');
 
 });
+
+app.get('/posts/:id/edit', (req, res) => {
+    const id = parseInt(req.params.id);
+    const post = posts.find(post => post.id === id);
+    if (!post) {
+        return res.status(404).send('post not found')
+    }
+    res.render('edit', { title: 'Edit Post', currentPage: 'posts', post: post });
+})
+
+app.post('/posts/:id/edit', (req, res) => {
+    const id = parseInt(req.params.id);
+    const post = posts.find(post => post.id === id);
+    if (!post) {
+        return res.status(404).send('post not found')
+    }
+    if (!req.body.title || !req.body.content) {
+        return res.status(400).send('Title and Content are required!')
+    }
+    post.title = req.body.title;
+    post.content = req.body.content;
+    res.redirect('/posts');
+})
+
+
 
 app.get('/posts/:id', (req, res) => {
     const id = parseInt(req.params.id);
@@ -80,11 +111,15 @@ app.get('/posts/:id', (req, res) => {
     res.render('post', { title: post.title, currentPage: 'posts', post: post });
 })
 
-app.delete('/posts/:id', (req, res) => {
+app.post('/posts/:id/delete', (req, res) => {
     const id = parseInt(req.params.id);
     posts = posts.filter(post => post.id !== id);
     res.redirect('/posts');
 })
+
+app.use((req, res) => {
+    res.status(404).render('404', { title: 'Page Not Found', currentPage: '' });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
